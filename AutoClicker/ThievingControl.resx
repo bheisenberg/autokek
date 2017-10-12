@@ -117,29 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="High_Level_Alchemy_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\High_Level_Alchemy_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nmz2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\nmz2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nmz1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\nmz1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hp_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hp_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nmz" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\nmz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Camelot_Teleport_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Camelot_Teleport_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="runescape_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\runescape_small.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="hp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>
