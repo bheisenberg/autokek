@@ -41,7 +41,6 @@ namespace AutoClicker
             {
                 graphics.CopyFromScreen(new Point(bounds.Left + 525, bounds.Top + 85), Point.Empty, bounds.Size);
             }
-            result.Save("c:/tmp/test/imgnew.png");
             return result;
         }
 
@@ -55,7 +54,6 @@ namespace AutoClicker
             {
                 graphics.CopyFromScreen(new Point(bounds.Left + 525, bounds.Top + 85), Point.Empty, bounds.Size);
             }
-            result.Save("c:/tmp/test/imgnew.png");
             return result;
         }
 
@@ -69,7 +67,6 @@ namespace AutoClicker
             {
                 graphics.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
             }
-            result.Save("c:/tmp/test/imgnew.png");
             return result;
         }
 

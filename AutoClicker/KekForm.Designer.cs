@@ -41,15 +41,14 @@
             this.minutesLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
-            this.bottomPanel = new System.Windows.Forms.Panel();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contentPanel = new System.Windows.Forms.Panel();
             this.alchemyButton = new System.Windows.Forms.Button();
             this.thievingButton = new System.Windows.Forms.Button();
             this.nmzButton = new System.Windows.Forms.Button();
             this.teleportButton = new System.Windows.Forms.Button();
+            this.bottomPanel = new System.Windows.Forms.Panel();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contentPanel = new System.Windows.Forms.Panel();
             this.msLabel2 = new System.Windows.Forms.Label();
-            this.testButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.rangeStartNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rangeEndNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.durationNumber)).BeginInit();
@@ -66,7 +65,7 @@
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.button1_Click);
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // rangeLabel
             // 
@@ -150,12 +149,12 @@
             // 
             this.versionLabel.AutoSize = true;
             this.versionLabel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.versionLabel.Location = new System.Drawing.Point(337, 0);
+            this.versionLabel.Location = new System.Drawing.Point(364, 0);
             this.versionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(131, 17);
+            this.versionLabel.Size = new System.Drawing.Size(104, 17);
             this.versionLabel.TabIndex = 14;
-            this.versionLabel.Text = "Version 1.41 (Beta)";
+            this.versionLabel.Text = "Version 1.0.1.0";
             this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // durationNumber
@@ -202,31 +201,6 @@
             this.optionsPanel.Name = "optionsPanel";
             this.optionsPanel.Size = new System.Drawing.Size(43, 180);
             this.optionsPanel.TabIndex = 28;
-            // 
-            // bottomPanel
-            // 
-            this.bottomPanel.Controls.Add(this.tildeLabel);
-            this.bottomPanel.Controls.Add(this.versionLabel);
-            this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 256);
-            this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Size = new System.Drawing.Size(468, 23);
-            this.bottomPanel.TabIndex = 29;
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
-            // 
-            // contentPanel
-            // 
-            this.contentPanel.BackColor = System.Drawing.Color.Transparent;
-            this.contentPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("contentPanel.BackgroundImage")));
-            this.contentPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.contentPanel.Location = new System.Drawing.Point(204, 12);
-            this.contentPanel.Name = "contentPanel";
-            this.contentPanel.Size = new System.Drawing.Size(210, 235);
-            this.contentPanel.TabIndex = 33;
             // 
             // alchemyButton
             // 
@@ -296,6 +270,31 @@
             this.teleportButton.UseVisualStyleBackColor = false;
             this.teleportButton.Click += new System.EventHandler(this.teleportButton_Click);
             // 
+            // bottomPanel
+            // 
+            this.bottomPanel.Controls.Add(this.tildeLabel);
+            this.bottomPanel.Controls.Add(this.versionLabel);
+            this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bottomPanel.Location = new System.Drawing.Point(0, 256);
+            this.bottomPanel.Name = "bottomPanel";
+            this.bottomPanel.Size = new System.Drawing.Size(468, 23);
+            this.bottomPanel.TabIndex = 29;
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
+            // contentPanel
+            // 
+            this.contentPanel.BackColor = System.Drawing.Color.Transparent;
+            this.contentPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("contentPanel.BackgroundImage")));
+            this.contentPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.contentPanel.Location = new System.Drawing.Point(204, 12);
+            this.contentPanel.Name = "contentPanel";
+            this.contentPanel.Size = new System.Drawing.Size(210, 235);
+            this.contentPanel.TabIndex = 33;
+            // 
             // msLabel2
             // 
             this.msLabel2.AutoSize = true;
@@ -306,22 +305,10 @@
             this.msLabel2.TabIndex = 34;
             this.msLabel2.Text = "ms";
             // 
-            // testButton
-            // 
-            this.testButton.Location = new System.Drawing.Point(13, 185);
-            this.testButton.Margin = new System.Windows.Forms.Padding(4);
-            this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(100, 28);
-            this.testButton.TabIndex = 35;
-            this.testButton.Text = "Test";
-            this.testButton.UseVisualStyleBackColor = true;
-            this.testButton.Click += new System.EventHandler(this.testButton_Click);
-            // 
             // KekForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(468, 279);
-            this.Controls.Add(this.testButton);
             this.Controls.Add(this.msLabel2);
             this.Controls.Add(this.optionsPanel);
             this.Controls.Add(this.contentPanel);
@@ -372,7 +359,6 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Panel contentPanel;
         private System.Windows.Forms.Label msLabel2;
-        private System.Windows.Forms.Button testButton;
     }
 }
 

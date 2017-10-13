@@ -50,7 +50,6 @@ namespace AutoClicker
         private void SetTimer()
         {
             kekTimer = new System.Timers.Timer();
-            //if (startupNumber.Value > 0) kekTimer.Interval = (int)startupNumber.Value;
             kekTimer.Elapsed += OnTimedEvent;
             kekTimer.AutoReset = true;
             kekTimer.Enabled = true;
@@ -65,8 +64,6 @@ namespace AutoClicker
         {
             PrivateFontCollection pfc = new PrivateFontCollection();
             pfc.AddFontFile("runescape_small.ttf");
-            //hpLabel.Font = new Font(pfc.Families[0], FontStyle.Regular);
-
         }
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
@@ -109,16 +106,16 @@ namespace AutoClicker
             }
         }
 
-        private void HandleHotkey()
+        private void TildePressed()
         {
-            HealthCapture.GetHealthLocation();
-            //Kek();
+            //HealthCapture.GetHealthLocation();
+            Kek();
         }
 
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == Constants.WM_HOTKEY_MSG_ID)
-                HandleHotkey();
+                TildePressed();
             base.WndProc(ref m);
         }
 
@@ -155,7 +152,6 @@ namespace AutoClicker
                 Hiscore hiscore = new Hiscore(username);
                 int hp = hiscore.getMaxHP();
                 this.healthCapture = new HealthCapture(hp);
-                //SetControlText(hpLabel, healthCapture.getHealth().amount.ToString(), healthCapture.getHealth().color);
                 SetFormText(defaultName + "(" + currState + ") [" + username + "]");
             }
             active = true;
@@ -223,7 +219,7 @@ namespace AutoClicker
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void startButton_Click(object sender, EventArgs e)
         {
             Kek();
         }
@@ -270,9 +266,6 @@ namespace AutoClicker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //FontManager.LoadFont(Properties.Resources.runescape_small);
-            //Font runescapeSmall = new Font(FontManager.private_fonts.Families[0], 20);
-            //hpLabel.Font = runescapeSmall;
             this.KeyPreview = true;
             kekTimer = new System.Timers.Timer((int)rangeStartNumber.Value);
             currState = KekState.none;
@@ -283,20 +276,6 @@ namespace AutoClicker
         {
             kekTimer.Enabled = false;
             Console.WriteLine("closed");
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            /*if (smartAlchCheck.Checked)
-            {
-                alchDelay = false;
-                Console.WriteLine("off");
-            }
-            else
-            {
-                alchDelay = true;
-                Console.WriteLine("alch delay");
-            }*/
         }
 
         private void thievingButton_Click(object sender, EventArgs e)
