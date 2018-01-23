@@ -15,31 +15,43 @@ using System.Text.RegularExpressions;
 
 namespace AutoClicker
 {
-    public partial class KekForm : Form
+    public partial class Application : Form
     {
         private string username;
         private bool active;
         private System.Timers.Timer kekTimer;
         private enum KekState { alching, teleporting, nmz, none, thieving };
         private KekState currState;
-        private int numClicks;
-        private KeyHandler keyHandler;
-        private bool alchDelay;
+        private Input input;
         private DateTime startTime;
-        private BackgroundWorker backgroundWorker1;
+        private BackgroundWorker clickActivity;
         private const string defaultName = "Autokek";
-        private enum alchemyState { ready, alch, javelin, wait };
-        private alchemyState alchState;
-        private HealthCapture healthCapture;
+        private Health healthCapture;
         private Control activeControl;
 
-        public KekForm()
+        public Application()
         {
             InitializeComponent();
-            keyHandler = new KeyHandler(Keys.Oemtilde, this);
-            keyHandler.Register();
-            backgroundWorker1 = new BackgroundWorker();
-            alchState = alchemyState.alch;
+            input = new Input(Keys.Oemtilde, this);
+            input.Register();
+            clickActivity = new BackgroundWorker();
+        }
+
+        private void StartKek()
+        {
+            if (Window.IsRunescape())
+            {
+                username = Window.GetUsername();
+                Hiscore playerHiscore = new Hiscore();
+                int hp = playerHiscore.GetHealth();
+                this.healthCapture = new Health(hp);
+                SetFormText(defaultName + "(" + currState + ") [" + username + "]");
+            }
+            active = true;
+            SetTimer();
+            startTime = DateTime.Now;
+            Console.WriteLine(currState);
+            SetControlText(startButton, "Stop");
         }
 
         public TimeSpan elapsed(DateTime start)
@@ -72,13 +84,14 @@ namespace AutoClicker
             {
                 Random r = new Random();
                 int nextKekTime = r.Next((int)rangeStartNumber.Value, (int)rangeEndNumber.Value);
+                Console.WriteLine(timeLeft());
                 kekTimer.Interval = nextKekTime;
                 switch (currState) {
                     case KekState.thieving:
                         Thieve();
                         break;
                     default:
-                        MouseManager.Click();
+                        Mouse.Click();
                         break;
                 }
             }
@@ -86,15 +99,15 @@ namespace AutoClicker
 
         private void Thieve()
         {
-            ThievingControl control = (ThievingControl)activeControl;
-            if (WindowManager.WindowMatches())
+            ThievingControl thievingControl = (ThievingControl)activeControl;
+            if (Window.IsRunescape())
             {
                 Invoke(new MethodInvoker(delegate () {
-                    control.UpdateHPLabel(healthCapture.getHealth());
+                    thievingControl.UpdateHPLabel(healthCapture.getHealth());
                 }));
                 if(healthCapture.getHealth().amount > 3)
                 {
-                    MouseManager.Click();
+                    Mouse.Click();
                 } else
                 {
                     StopKek();
@@ -108,7 +121,6 @@ namespace AutoClicker
 
         private void TildePressed()
         {
-            //HealthCapture.GetHealthLocation();
             Kek();
         }
 
@@ -129,7 +141,7 @@ namespace AutoClicker
             {
                 StopKek();
             }
-            this.backgroundWorker1.RunWorkerAsync();
+            this.clickActivity.RunWorkerAsync();
         }
 
         private void StopKek()
@@ -139,26 +151,7 @@ namespace AutoClicker
             Console.WriteLine("rip the dream");
             SetFormText(defaultName);
             SetControlText(startButton, "Start");
-            alchState = alchemyState.alch;
             Console.WriteLine("Cursor position = X: " + Cursor.Position.X + ", Y: " + Cursor.Position.Y);
-        }
-
-        private void StartKek ()
-        {
-            WindowManager windowManager = new WindowManager();
-            if (WindowManager.WindowMatches())
-            {
-                username = WindowManager.getUsername();
-                Hiscore hiscore = new Hiscore(username);
-                int hp = hiscore.getMaxHP();
-                this.healthCapture = new HealthCapture(hp);
-                SetFormText(defaultName + "(" + currState + ") [" + username + "]");
-            }
-            active = true;
-            SetTimer();
-            startTime = DateTime.Now;
-            Console.WriteLine(currState);
-            SetControlText(startButton, "Stop");
         }
 
         private void SetFormText(string text)
@@ -204,20 +197,15 @@ namespace AutoClicker
             }
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void KekComplete(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (active)
-            {
-
-            }
-            else
+            if (!active)
             {
                 this.Text = "Autokek (" + currState + ")";
                 startButton.Text = "Start";
+                Console.WriteLine("changed text");
             }
-            Console.WriteLine("changed text");
         }
-
 
         private void startButton_Click(object sender, EventArgs e)
         {
@@ -264,15 +252,15 @@ namespace AutoClicker
             rangeEndNumber.Value = end;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void KekForm_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
             kekTimer = new System.Timers.Timer((int)rangeStartNumber.Value);
             currState = KekState.none;
-            this.FormClosing += Form1_FormClosing;
+            this.FormClosing += KekForm_FormClosing;
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void KekForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             kekTimer.Enabled = false;
             Console.WriteLine("closed");
@@ -300,7 +288,7 @@ namespace AutoClicker
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            HealthCapture.GetHealthLocation();
+            //Screen.GetHealthLocation();
         }
     }
 }

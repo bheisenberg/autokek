@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace AutoClicker
 {
-    public class WindowManager
+    public static class Window
     {
         [DllImport("user32.dll")]
         static extern IntPtr GetForegroundWindow();
@@ -19,7 +19,7 @@ namespace AutoClicker
         [DllImport("user32.dll")]
         private static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
         public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
-        private static string windowPattern = @"OSBuddy [A-Za-z]{3,5} - [a-zA-Z0-9_ ]+ \[([A-Za-z0-9_ ]{1,12})\]";
+        private static string runescapeWindowText = @"OSBuddy [A-Za-z]{3,5} - [a-zA-Z0-9_ ]+ \[([A-Za-z0-9_ ]{1,12})\]";
 
         public static string GetActiveWindowTitle()
         {
@@ -34,11 +34,11 @@ namespace AutoClicker
             return null;
         }
 
-        public static string getUsername()
+        public static string GetUsername()
         {
             string title = GetActiveWindowTitle();
             Console.WriteLine(title);
-            Match match = Regex.Match(title, windowPattern);
+            Match match = Regex.Match(title, runescapeWindowText);
             if (match.Success)
             {
                 Console.WriteLine(match.Groups[1]);
@@ -47,9 +47,9 @@ namespace AutoClicker
             return match.Groups[1].Value;
         }
 
-        public static bool WindowMatches ()
+        public static bool IsRunescape ()
         {
-            return Regex.IsMatch(GetActiveWindowTitle(), windowPattern);
+            return Regex.IsMatch(GetActiveWindowTitle(), runescapeWindowText);
         }
 
         public static IEnumerable<IntPtr> FindWindowsWithText(string titleText)
@@ -82,11 +82,8 @@ namespace AutoClicker
             {
                 if (filter(wnd, param))
                 {
-                    // only add the windows that pass the filter
                     windows.Add(wnd);
                 }
-
-                // but return true here so that we iterate all windows
                 return true;
             }, IntPtr.Zero);
 

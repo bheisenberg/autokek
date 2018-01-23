@@ -9,26 +9,35 @@ namespace AutoClicker
 {
     public class Hiscore
     {
-        public string username { get; set; }
+        private string baseUrl = "http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=";
+        private const int healthValue = 9;
 
-        public Hiscore(string username)
+        public int GetHealth()
         {
-            this.username = username;
+            string[] hiscore = getPlayerHiscores();
+            return (int.Parse(hiscore[healthValue]));
         }
 
-
-
-        public int getMaxHP ()
+        private string[] getPlayerHiscores()
         {
-            string url = "http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" + username;
-            Console.WriteLine(url);
-            using(WebClient webClient = new WebClient())
+            using (WebClient hiscoreConnection = new WebClient())
             {
-                string json = webClient.DownloadString(url);
-                string[] hiscore = json.Split(',');
-                Console.WriteLine("HP: "+hiscore[9]);
-                return (int.Parse(hiscore[9]));
+                string hiscoreJson = hiscoreConnection.DownloadString(PlayerUrl());
+                return hiscoreJson.Split(',');
             }
         }
+
+        public string PlayerUrl()
+        {
+            try
+            {
+                return baseUrl + Window.GetUsername();
+            }
+            catch
+            {
+                return "username is invalid";
+            }
+        }
+
     }
 }

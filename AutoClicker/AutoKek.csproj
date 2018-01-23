@@ -61,7 +61,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -84,31 +84,43 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FontManager.cs" />
-    <Compile Include="HealthCapture.cs" />
+    <Compile Include="Health.cs" />
+    <Compile Include="Screen.cs" />
     <Compile Include="Hiscore.cs" />
     <Compile Include="Hitpoints.cs" />
-    <Compile Include="MouseManager.cs" />
     <Compile Include="ThievingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ThievingControl.Designer.cs">
       <DependentUpon>ThievingControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WindowManager.cs" />
-    <Compile Include="KekHandler.cs" />
-    <Compile Include="KeyHandler.cs" />
+    <Compile Include="TimeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeControl.Designer.cs">
+      <DependentUpon>TimeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NumberBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NumberBox.Designer.cs">
+      <DependentUpon>NumberBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Window.cs" />
+    <Compile Include="Mouse.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="KekForm.cs">
+    <Compile Include="Application.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KekForm.Designer.cs">
-      <DependentUpon>KekForm.cs</DependentUpon>
+    <Compile Include="Application.Designer.cs">
+      <DependentUpon>Application.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\IKek.cs" />
-    <EmbeddedResource Include="KekForm.resx">
-      <DependentUpon>KekForm.cs</DependentUpon>
+    <EmbeddedResource Include="Application.resx">
+      <DependentUpon>Application.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -122,6 +134,9 @@
     </Compile>
     <EmbeddedResource Include="ThievingControl.resx">
       <DependentUpon>ThievingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeControl.resx">
+      <DependentUpon>TimeControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="AutoClicker_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">

@@ -1,6 +1,6 @@
 ﻿namespace AutoClicker
 {
-    partial class KekForm
+    partial class Application
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KekForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Application));
             this.startButton = new System.Windows.Forms.Button();
             this.rangeLabel = new System.Windows.Forms.Label();
             this.msLabel = new System.Windows.Forms.Label();
@@ -47,8 +47,9 @@
             this.teleportButton = new System.Windows.Forms.Button();
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contentPanel = new System.Windows.Forms.Panel();
             this.msLabel2 = new System.Windows.Forms.Label();
+            this.timeControl1 = new Mouse.TimeControl();
+            this.contentPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.rangeStartNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rangeEndNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.durationNumber)).BeginInit();
@@ -285,16 +286,6 @@
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
-            // contentPanel
-            // 
-            this.contentPanel.BackColor = System.Drawing.Color.Transparent;
-            this.contentPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("contentPanel.BackgroundImage")));
-            this.contentPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.contentPanel.Location = new System.Drawing.Point(204, 12);
-            this.contentPanel.Name = "contentPanel";
-            this.contentPanel.Size = new System.Drawing.Size(210, 235);
-            this.contentPanel.TabIndex = 33;
-            // 
             // msLabel2
             // 
             this.msLabel2.AutoSize = true;
@@ -305,10 +296,28 @@
             this.msLabel2.TabIndex = 34;
             this.msLabel2.Text = "ms";
             // 
+            // timeControl1
+            // 
+            this.timeControl1.Location = new System.Drawing.Point(9, 146);
+            this.timeControl1.Name = "timeControl1";
+            this.timeControl1.Size = new System.Drawing.Size(143, 46);
+            this.timeControl1.TabIndex = 35;
+            // 
+            // contentPanel
+            // 
+            this.contentPanel.BackColor = System.Drawing.Color.Transparent;
+            this.contentPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("contentPanel.BackgroundImage")));
+            this.contentPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.contentPanel.Location = new System.Drawing.Point(204, 12);
+            this.contentPanel.Name = "contentPanel";
+            this.contentPanel.Size = new System.Drawing.Size(210, 235);
+            this.contentPanel.TabIndex = 33;
+            // 
             // KekForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(468, 279);
+            this.Controls.Add(this.timeControl1);
             this.Controls.Add(this.msLabel2);
             this.Controls.Add(this.optionsPanel);
             this.Controls.Add(this.contentPanel);
@@ -326,7 +335,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "KekForm";
             this.Text = "Autokek";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.KekForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.rangeStartNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rangeEndNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.durationNumber)).EndInit();
@@ -359,6 +368,7 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Panel contentPanel;
         private System.Windows.Forms.Label msLabel2;
+        private TimeControl timeControl1;
     }
 }
 

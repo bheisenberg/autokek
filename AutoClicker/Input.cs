@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 
 namespace AutoClicker
 {
-    public class KeyHandler
+    public class Input
     {
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
@@ -20,7 +20,7 @@ namespace AutoClicker
         private IntPtr hWnd;
         private int id;
 
-        public KeyHandler(Keys key, Form form)
+        public Input(Keys key, Form form)
         {
             this.key = (int)key;
             this.hWnd = form.Handle;
