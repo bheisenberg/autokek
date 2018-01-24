@@ -7,36 +7,33 @@ using System.Drawing;
 
 namespace AutoClicker
 {
-    class HitpointsCapturer
+    public class HitpointsCapturer
     {
         private const float HEALTHCONSTANT = 0.00196079f;
+        private GameScreen gameScreen;
         private int hitpointsLevel;
         public Color HitpointsColor { get; }
-        public int currentHitpoints { get; }
+        public int CurrentHitpoints { get; }
 
-        public HitpointsCapturer()
+        public HitpointsCapturer(int hitpointsLevel, GameScreen gameScreen)
         {
-            this.hitpointsLevel = GetHitpointsFromHiscores();
+            this.gameScreen = gameScreen;
+            this.hitpointsLevel = hitpointsLevel;
             this.HitpointsColor = GetHitpointsColor();
-            this.currentHitpoints = CalculateCurrentHitpointsAmount();
+            this.CurrentHitpoints = CalculateCurrentHitpointsAmount();
         }
 
         public int CalculateCurrentHitpointsAmount()
         {
-            return (int)Math.Round(((hitpointsLevel / 2f) 
-                - (hitpointsLevel * HEALTHCONSTANT * HitpointsColor.R) 
+            return (int)Math.Round(((hitpointsLevel / 2f)
+                - (hitpointsLevel * HEALTHCONSTANT * HitpointsColor.R)
                 + (hitpointsLevel * HEALTHCONSTANT * HitpointsColor.G)));
-        }
-
-        public int GetHitpointsFromHiscores()
-        {
-            Hiscore playerHiscore = new Hiscore();
-            return playerHiscore.GetHitpoints();
         }
 
         private Color GetHitpointsColor()
         {
-            FindHealthLocation();
+            Color correctPixel = Color.FromArgb(253, 221, 152);
+            /*FindHealthLocation();
             int startX = 7;
             int startY = 12;
             Color[] badColors = new Color[] { Color.FromArgb(104, 90, 75), Color.FromArgb(0, 0, 0) };
@@ -47,30 +44,10 @@ namespace AutoClicker
                 count++;
                 color = image.GetPixel(startX + count, startY);
             }
-            return color;
+            return color;*/
+            return new Color();
         }
 
-        public void FindHealthLocation()
-        {
-            Color correctPixel = Color.FromArgb(253, 221, 152);
-            Bitmap screen = CaptureFullScreen();
-            Color currentPixel = screen.GetPixel(0, 0);
-            int x = 0;
-            int y = 0;
-            while (currentPixel != correctPixel)
-            {
-                if (x < screen.Width)
-                {
-                    currentPixel = screen.GetPixel(x, y);
-                    x++;
-                }
-                else if (x >= screen.Width)
-                {
-                    x = 0;
-                    y++;
-                }
-            }
-            Console.WriteLine("found!");
-        }
+
     }
 }

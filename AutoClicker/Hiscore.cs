@@ -9,8 +9,14 @@ namespace AutoClicker
 {
     public class Hiscore
     {
+        private string username;
         private string baseUrl = "http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=";
         private const int HITPOINTS = 9;
+
+        public Hiscore (string username)
+        {
+            this.username = username;
+        }
 
         public int GetHitpoints()
         {
@@ -31,7 +37,7 @@ namespace AutoClicker
         {
             try
             {
-                return baseUrl + Window.GetUsername();
+                return baseUrl + username;
             }
             catch
             {

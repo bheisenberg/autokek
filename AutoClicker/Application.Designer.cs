@@ -48,7 +48,7 @@
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.msLabel2 = new System.Windows.Forms.Label();
-            this.timeControl1 = new Mouse.TimeControl();
+            //this.timeControl1 = new Mouse.TimeControl();
             this.contentPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.rangeStartNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rangeEndNumber)).BeginInit();
@@ -296,12 +296,6 @@
             this.msLabel2.TabIndex = 34;
             this.msLabel2.Text = "ms";
             // 
-            // timeControl1
-            // 
-            this.timeControl1.Location = new System.Drawing.Point(9, 146);
-            this.timeControl1.Name = "timeControl1";
-            this.timeControl1.Size = new System.Drawing.Size(143, 46);
-            this.timeControl1.TabIndex = 35;
             // 
             // contentPanel
             // 
@@ -317,7 +311,6 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(468, 279);
-            this.Controls.Add(this.timeControl1);
             this.Controls.Add(this.msLabel2);
             this.Controls.Add(this.optionsPanel);
             this.Controls.Add(this.contentPanel);

@@ -26,11 +26,15 @@ namespace AutoClicker
         private DateTime startTime;
         private BackgroundWorker clickActivity;
         private const string defaultName = "Autokek";
-        private HitpointsCapturer healthCapture;
+        //private HitpointsCapturer hitpointsCapturer;
+        private HitpointsCapturer hitpointsCapturer;
         private Control activeControl;
+        private Window window;
+        private GameScreen screen;
 
         public Application()
         {
+            this.window = new Window();
             InitializeComponent();
             input = new Input(Keys.Oemtilde, this);
             input.Register();
@@ -39,13 +43,17 @@ namespace AutoClicker
 
         private void StartKek()
         {
-            if (Window.IsRunescape())
+            if (window.IsRunescapeOpen())
             {
-                username = Window.GetUsername();
-                Hiscore playerHiscore = new Hiscore();
-                int hp = playerHiscore.GetHitpoints();
-                this.healthCapture = new HitpointsCapturer(hp);
+                username = window.GetUsername();
+                Hiscore playerHiscore = new Hiscore(username);
+                int hitpoints = playerHiscore.GetHitpoints();
+                HitpointsCapturer hitpointsCapturer = new HitpointsCapturer(hitpoints,);
+         
                 SetFormText(defaultName + "(" + currState + ") [" + username + "]");
+            } else
+            {
+
             }
             active = true;
             SetTimer();
@@ -99,7 +107,7 @@ namespace AutoClicker
 
         private void Thieve()
         {
-            ThievingControl thievingControl = (ThievingControl)activeControl;
+            /*ThievingControl thievingControl = (ThievingControl)activeControl;
             if (Window.IsRunescape())
             {
                 Invoke(new MethodInvoker(delegate () {
@@ -116,7 +124,7 @@ namespace AutoClicker
             else
             {
                 StopKek();
-            }
+            }*/
         }
 
         private void TildePressed()

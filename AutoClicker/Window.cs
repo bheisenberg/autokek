@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace AutoClicker
 {
-    public static class Window
+    public class Window
     {
         [DllImport("user32.dll")]
         static extern IntPtr GetForegroundWindow();
@@ -19,9 +21,40 @@ namespace AutoClicker
         [DllImport("user32.dll")]
         private static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
         public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
-        private static string runescapeWindowText = @"OSBuddy [A-Za-z]{3,5} - [a-zA-Z0-9_ ]+ \[([A-Za-z0-9_ ]{1,12})\]";
+        private const string runescapeWindowText = @"OSBuddy [A-Za-z]{3,5} - [a-zA-Z0-9_ ]+ \[([A-Za-z0-9_ ]{1,12})\]";
+        public IntPtr RunescapeWindow { get; }
+        public GameScreen gameScreen { get; }
 
-        public static string GetActiveWindowTitle()
+        public Window ()
+        {
+            this.RunescapeWindow = GetRunescapeWindow();
+            this.gameScreen = new GameScreen(this.RunescapeWindow);
+        }
+
+        public bool IsRunescapeOpen()
+        {
+            return RunescapeWindow != IntPtr.Zero;
+        }
+
+        private IntPtr GetRunescapeWindow()
+        {
+            Process[] processes = Process.GetProcesses();
+            foreach (Process process in processes)
+            {
+                if (Regex.IsMatch(process.MainWindowTitle, runescapeWindowText))
+                {
+                    return process.MainWindowHandle;
+                }
+            }
+            return IntPtr.Zero;
+        }
+
+        private bool IsWindowRunescape()
+        {
+            return Regex.IsMatch(GetActiveWindowTitle(), runescapeWindowText);
+        }
+
+        private string GetActiveWindowTitle()
         {
             const int nChars = 256;
             StringBuilder Buff = new StringBuilder(nChars);
@@ -34,7 +67,7 @@ namespace AutoClicker
             return null;
         }
 
-        public static string GetUsername()
+        public string GetUsername()
         {
             string title = GetActiveWindowTitle();
             Console.WriteLine(title);
@@ -43,16 +76,10 @@ namespace AutoClicker
             {
                 Console.WriteLine(match.Groups[1]);
             }
-            int count = 0;
             return match.Groups[1].Value;
         }
 
-        public static bool IsRunescape ()
-        {
-            return Regex.IsMatch(GetActiveWindowTitle(), runescapeWindowText);
-        }
-
-        public static IEnumerable<IntPtr> FindWindowsWithText(string titleText)
+        private IEnumerable<IntPtr> FindWindowsWithText(string titleText)
         {
             return FindWindows(delegate (IntPtr wnd, IntPtr param)
             {
@@ -60,7 +87,7 @@ namespace AutoClicker
             });
         }
 
-        public static string GetWindowText(IntPtr hWnd)
+        private string GetWindowText(IntPtr hWnd)
         {
             int size = GetWindowTextLength(hWnd);
             if (size > 0)
@@ -73,7 +100,7 @@ namespace AutoClicker
             return String.Empty;
         }
 
-        public static IEnumerable<IntPtr> FindWindows(EnumWindowsProc filter)
+        private IEnumerable<IntPtr> FindWindows(EnumWindowsProc filter)
         {
             IntPtr found = IntPtr.Zero;
             List<IntPtr> windows = new List<IntPtr>();
@@ -86,7 +113,6 @@ namespace AutoClicker
                 }
                 return true;
             }, IntPtr.Zero);
-
             return windows;
         }
     }
