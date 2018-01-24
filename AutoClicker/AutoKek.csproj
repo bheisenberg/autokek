@@ -84,8 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FontManager.cs" />
-    <Compile Include="Health.cs" />
-    <Compile Include="Screen.cs" />
+    <Compile Include="HitpointsCapturer.cs" />
+    <Compile Include="GameScreen.cs" />
     <Compile Include="Hiscore.cs" />
     <Compile Include="Hitpoints.cs" />
     <Compile Include="ThievingControl.cs">

@@ -10,12 +10,12 @@ namespace AutoClicker
     public class Hiscore
     {
         private string baseUrl = "http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=";
-        private const int healthValue = 9;
+        private const int HITPOINTS = 9;
 
-        public int GetHealth()
+        public int GetHitpoints()
         {
             string[] hiscore = getPlayerHiscores();
-            return (int.Parse(hiscore[healthValue]));
+            return (int.Parse(hiscore[HITPOINTS]));
         }
 
         private string[] getPlayerHiscores()
@@ -35,7 +35,7 @@ namespace AutoClicker
             }
             catch
             {
-                return "username is invalid";
+                throw new Exception("username not found");
             }
         }
 

@@ -26,7 +26,7 @@ namespace AutoClicker
         private DateTime startTime;
         private BackgroundWorker clickActivity;
         private const string defaultName = "Autokek";
-        private Health healthCapture;
+        private HitpointsCapturer healthCapture;
         private Control activeControl;
 
         public Application()
@@ -43,8 +43,8 @@ namespace AutoClicker
             {
                 username = Window.GetUsername();
                 Hiscore playerHiscore = new Hiscore();
-                int hp = playerHiscore.GetHealth();
-                this.healthCapture = new Health(hp);
+                int hp = playerHiscore.GetHitpoints();
+                this.healthCapture = new HitpointsCapturer(hp);
                 SetFormText(defaultName + "(" + currState + ") [" + username + "]");
             }
             active = true;
@@ -103,9 +103,9 @@ namespace AutoClicker
             if (Window.IsRunescape())
             {
                 Invoke(new MethodInvoker(delegate () {
-                    thievingControl.UpdateHPLabel(healthCapture.getHealth());
+                    thievingControl.UpdateHPLabel(healthCapture.GetCurrentHitpoints());
                 }));
-                if(healthCapture.getHealth().amount > 3)
+                if(healthCapture.GetCurrentHitpoints().amount > 3)
                 {
                     Mouse.Click();
                 } else

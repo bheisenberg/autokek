@@ -8,13 +8,12 @@ using System.Drawing;
 
 namespace AutoClicker
 {
-    public static class Screen
+    public static class GameScreen
     {
         [DllImport("user32.dll")]
         static extern IntPtr GetForegroundWindow();
         [DllImport("user32.dll")]
         public static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
-
         [StructLayout(LayoutKind.Sequential)]
         public struct Rect
         {
