@@ -84,11 +84,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FontManager.cs" />
-    <Compile Include="GameScreen.cs" />
     <Compile Include="Hiscore.cs" />
     <Compile Include="Hitpoints.cs" />
     <Compile Include="HitpointsCapturer.cs" />
-    <Compile Include="PixelFinder.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Rect.cs" />
+    <Compile Include="RunescapeWindow.cs" />
+    <Compile Include="Skill.cs" />
     <Compile Include="ThievingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -108,6 +110,7 @@
       <DependentUpon>NumberBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Window.cs" />
+    <Compile Include="WindowFunctions.cs" />
     <Compile Include="Mouse.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Constants.cs" />
@@ -139,7 +142,6 @@
     <EmbeddedResource Include="TimeControl.resx">
       <DependentUpon>TimeControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="AutoClicker_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

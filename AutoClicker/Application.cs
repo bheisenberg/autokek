@@ -26,29 +26,83 @@ namespace AutoClicker
         private DateTime startTime;
         private BackgroundWorker clickActivity;
         private const string defaultName = "Autokek";
-        //private HitpointsCapturer hitpointsCapturer;
         private HitpointsCapturer hitpointsCapturer;
         private Control activeControl;
-        private Window window;
-        private GameScreen screen;
+        private Player player;
+        private RunescapeWindow runescapeWindow;
 
         public Application()
         {
-            this.window = new Window();
             InitializeComponent();
-            input = new Input(Keys.Oemtilde, this);
-            input.Register();
-            clickActivity = new BackgroundWorker();
         }
 
-        private void StartKek()
+        private void Application_Load(object sender, EventArgs e)
+        {
+            //
+            player = new Player();
+            FormClosing += Application_Close;
+            clickActivity = new BackgroundWorker();
+            TryToConnectToRuneScape();
+            //this.KeyPreview = true;
+            //kekTimer = new System.Timers.Timer((int)rangeStartNumber.Value);
+            //currState = KekState.none;
+            //this.window = new Window();
+            //input = new Input(Keys.Oemtilde, this);
+            //input.Register();
+        }
+
+        private void AddUserNameToTitle()
+        {
+            SetFormText(String.Format("{0} - {1}", defaultName, player.UserName));
+        }
+
+        private void TryToConnectToRuneScape()
+        {
+            runescapeWindow = new RunescapeWindow();
+            if (runescapeWindow.IsActive())
+            {
+                player = new Player(runescapeWindow.GetUserName());
+                AddUserNameToTitle();
+                UpdateConnectedButtonToConnected();
+            }
+        }
+
+
+
+        private void UpdateConnectedButtonToConnected()
+        {
+            string connectedText = "RuneScape Connected";
+            runescapeButton.Text = connectedText;
+            runescapeButton.Enabled = false;
+        }
+
+        private void UpdateConnectedButtonToDisconnected()
+        {
+            string disconnectedText = "RuneScape Disconnected";
+            runescapeButton.Text = disconnectedText;
+            runescapeButton.Enabled = true;
+        }
+
+        /*private void GetPlayer()
+        {
+            if(window.IsRunescapeOpen())
+            {
+                player = new Player(window.GetUsername());
+            }
+            else
+            {
+                player = new Player();
+            }
+        }*/
+       
+        /*private void StartKek()
         {
             if (window.IsRunescapeOpen())
             {
                 username = window.GetUsername();
                 Hiscore playerHiscore = new Hiscore(username);
                 int hitpoints = playerHiscore.GetHitpoints();
-                HitpointsCapturer hitpointsCapturer = new HitpointsCapturer(hitpoints,);
+                //HitpointsCapturer hitpointsCapturer = new HitpointsCapturer(hitpoints);
          
                 SetFormText(defaultName + "(" + currState + ") [" + username + "]");
             } else
@@ -60,7 +114,7 @@ namespace AutoClicker
             startTime = DateTime.Now;
             Console.WriteLine(currState);
             SetControlText(startButton, "Stop");
-        }
+        }*/
 
         public TimeSpan elapsed(DateTime start)
         {
@@ -75,10 +129,10 @@ namespace AutoClicker
             kekTimer.Enabled = true;
         }
 
-        private int timeLeft ()
+        /*private int timeLeft ()
         {
-            return (int)durationNumber.Value - (int)elapsed(startTime).TotalSeconds;
-        }
+            //return (int)durationNumber.Value - (int)elapsed(startTime).TotalSeconds;
+        }*/
 
         private void InitHPFont()
         {
@@ -88,7 +142,7 @@ namespace AutoClicker
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            if (timeLeft() > 0 || durationNumber.Value == 0)
+            /*if (timeLeft() > 0 || durationNumber.Value == 0)
             {
                 Random r = new Random();
                 int nextKekTime = r.Next((int)rangeStartNumber.Value, (int)rangeEndNumber.Value);
@@ -102,7 +156,7 @@ namespace AutoClicker
                         Mouse.Click();
                         break;
                 }
-            }
+            }*/
         }
 
         private void Thieve()
@@ -143,7 +197,7 @@ namespace AutoClicker
         {
             if (!active)
             {
-                StartKek();
+                //StartKek();
             }
             else
             {
@@ -260,17 +314,9 @@ namespace AutoClicker
             rangeEndNumber.Value = end;
         }
 
-        private void KekForm_Load(object sender, EventArgs e)
+        private void Application_Close(object sender, FormClosingEventArgs e)
         {
-            this.KeyPreview = true;
-            kekTimer = new System.Timers.Timer((int)rangeStartNumber.Value);
-            currState = KekState.none;
-            this.FormClosing += KekForm_FormClosing;
-        }
-
-        private void KekForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            kekTimer.Enabled = false;
+            //kekTimer.Enabled = false;
             Console.WriteLine("closed");
         }
 
@@ -297,6 +343,12 @@ namespace AutoClicker
         private void testButton_Click(object sender, EventArgs e)
         {
             //Screen.GetHealthLocation();
+        }
+
+        private void runescapeButton_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("wtf meng");
+            TryToConnectToRuneScape();
         }
     }
 }

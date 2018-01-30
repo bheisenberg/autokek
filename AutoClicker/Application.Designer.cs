@@ -37,29 +37,25 @@
             this.rangeEndNumber = new System.Windows.Forms.NumericUpDown();
             this.tildeLabel = new System.Windows.Forms.Label();
             this.versionLabel = new System.Windows.Forms.Label();
-            this.durationNumber = new System.Windows.Forms.NumericUpDown();
-            this.minutesLabel = new System.Windows.Forms.Label();
-            this.durationLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.alchemyButton = new System.Windows.Forms.Button();
             this.thievingButton = new System.Windows.Forms.Button();
             this.nmzButton = new System.Windows.Forms.Button();
             this.teleportButton = new System.Windows.Forms.Button();
             this.bottomPanel = new System.Windows.Forms.Panel();
+            this.runescapeButton = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.msLabel2 = new System.Windows.Forms.Label();
-            //this.timeControl1 = new Mouse.TimeControl();
             this.contentPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.rangeStartNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rangeEndNumber)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.durationNumber)).BeginInit();
             this.optionsPanel.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(13, 221);
+            this.startButton.Location = new System.Drawing.Point(13, 153);
             this.startButton.Margin = new System.Windows.Forms.Padding(4);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(100, 28);
@@ -158,39 +154,6 @@
             this.versionLabel.Text = "Version 1.0.1.0";
             this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // durationNumber
-            // 
-            this.durationNumber.Location = new System.Drawing.Point(16, 104);
-            this.durationNumber.Margin = new System.Windows.Forms.Padding(4);
-            this.durationNumber.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.durationNumber.Name = "durationNumber";
-            this.durationNumber.Size = new System.Drawing.Size(102, 22);
-            this.durationNumber.TabIndex = 15;
-            // 
-            // minutesLabel
-            // 
-            this.minutesLabel.AutoSize = true;
-            this.minutesLabel.Location = new System.Drawing.Point(126, 106);
-            this.minutesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.minutesLabel.Name = "minutesLabel";
-            this.minutesLabel.Size = new System.Drawing.Size(57, 17);
-            this.minutesLabel.TabIndex = 16;
-            this.minutesLabel.Text = "minutes";
-            // 
-            // durationLabel
-            // 
-            this.durationLabel.AutoSize = true;
-            this.durationLabel.Location = new System.Drawing.Point(13, 83);
-            this.durationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.durationLabel.Name = "durationLabel";
-            this.durationLabel.Size = new System.Drawing.Size(62, 17);
-            this.durationLabel.TabIndex = 17;
-            this.durationLabel.Text = "Duration";
-            // 
             // optionsPanel
             // 
             this.optionsPanel.AutoSize = true;
@@ -273,13 +236,26 @@
             // 
             // bottomPanel
             // 
+            this.bottomPanel.Controls.Add(this.runescapeButton);
             this.bottomPanel.Controls.Add(this.tildeLabel);
             this.bottomPanel.Controls.Add(this.versionLabel);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 256);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 291);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(468, 23);
             this.bottomPanel.TabIndex = 29;
+            // 
+            // runescapeButton
+            // 
+            this.runescapeButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.runescapeButton.Location = new System.Drawing.Point(132, 0);
+            this.runescapeButton.Margin = new System.Windows.Forms.Padding(4);
+            this.runescapeButton.Name = "runescapeButton";
+            this.runescapeButton.Size = new System.Drawing.Size(232, 23);
+            this.runescapeButton.TabIndex = 35;
+            this.runescapeButton.Text = "Connect to RuneScape";
+            this.runescapeButton.UseVisualStyleBackColor = true;
+            this.runescapeButton.Click += new System.EventHandler(this.runescapeButton_Click);
             // 
             // notifyIcon1
             // 
@@ -296,7 +272,6 @@
             this.msLabel2.TabIndex = 34;
             this.msLabel2.Text = "ms";
             // 
-            // 
             // contentPanel
             // 
             this.contentPanel.BackColor = System.Drawing.Color.Transparent;
@@ -307,17 +282,14 @@
             this.contentPanel.Size = new System.Drawing.Size(210, 235);
             this.contentPanel.TabIndex = 33;
             // 
-            // KekForm
+            // Application
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(468, 279);
+            this.ClientSize = new System.Drawing.Size(468, 314);
             this.Controls.Add(this.msLabel2);
             this.Controls.Add(this.optionsPanel);
             this.Controls.Add(this.contentPanel);
             this.Controls.Add(this.bottomPanel);
-            this.Controls.Add(this.durationLabel);
-            this.Controls.Add(this.minutesLabel);
-            this.Controls.Add(this.durationNumber);
             this.Controls.Add(this.rangeEndNumber);
             this.Controls.Add(this.rangeStartNumber);
             this.Controls.Add(this.msLabel);
@@ -326,12 +298,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "KekForm";
+            this.Name = "Application";
             this.Text = "Autokek";
-            this.Load += new System.EventHandler(this.KekForm_Load);
+            this.Load += new System.EventHandler(this.Application_Load);
             ((System.ComponentModel.ISupportInitialize)(this.rangeStartNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rangeEndNumber)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.durationNumber)).EndInit();
             this.optionsPanel.ResumeLayout(false);
             this.bottomPanel.ResumeLayout(false);
             this.bottomPanel.PerformLayout();
@@ -350,9 +321,6 @@
         private System.Windows.Forms.Label tildeLabel;
         private System.Windows.Forms.Button alchemyButton;
         private System.Windows.Forms.Label versionLabel;
-        private System.Windows.Forms.NumericUpDown durationNumber;
-        private System.Windows.Forms.Label minutesLabel;
-        private System.Windows.Forms.Label durationLabel;
         private System.Windows.Forms.Button nmzButton;
         private System.Windows.Forms.Button teleportButton;
         private System.Windows.Forms.Button thievingButton;
@@ -362,6 +330,7 @@
         private System.Windows.Forms.Panel contentPanel;
         private System.Windows.Forms.Label msLabel2;
         private TimeControl timeControl1;
+        private System.Windows.Forms.Button runescapeButton;
     }
 }
 

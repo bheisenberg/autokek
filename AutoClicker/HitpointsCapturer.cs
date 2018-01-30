@@ -9,7 +9,7 @@ namespace AutoClicker
 {
     public class HitpointsCapturer
     {
-        private const float HEALTHCONSTANT = 0.00196079f;
+        /*private const float HEALTHCONSTANT = 0.00196079f;
         private GameScreen gameScreen;
         private int hitpointsLevel;
         public Color HitpointsColor { get; }
@@ -33,7 +33,7 @@ namespace AutoClicker
         private Color GetHitpointsColor()
         {
             Color correctPixel = Color.FromArgb(253, 221, 152);
-            /*FindHealthLocation();
+            FindHealthLocation();
             int startX = 7;
             int startY = 12;
             Color[] badColors = new Color[] { Color.FromArgb(104, 90, 75), Color.FromArgb(0, 0, 0) };
@@ -44,9 +44,9 @@ namespace AutoClicker
                 count++;
                 color = image.GetPixel(startX + count, startY);
             }
-            return color;*/
+            return color;
             return new Color();
-        }
+        }*/
 
 
     }

@@ -10,30 +10,55 @@ namespace AutoClicker
     public class Hiscore
     {
         private string username;
+        private int rank;
         private string baseUrl = "http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=";
-        private const int HITPOINTS = 9;
+        private string[] hiscoreMap;
+        private const int NUM_SKILLS = 24;
+        private const int NUM_PROPERTIES = 3;
+
 
         public Hiscore (string username)
         {
             this.username = username;
+            this.hiscoreMap = new string[]
+            {
+                "total", "attack", "defence", "strength", "hitpoints",
+                "ranged", "prayer", "magic", "cooking", "woodcutting",
+                "fletching", "fishing", "firemaking", "crafting", "smithing",
+                "mining", "herblore", "agility", "thieving", "slayer",
+                "farming", "runecraft", "hunter", "construction"
+            };
         }
 
-        public int GetHitpoints()
+        public Dictionary<string, Skill> GetSkills()
         {
-            string[] hiscore = getPlayerHiscores();
-            return (int.Parse(hiscore[HITPOINTS]));
+            Dictionary<string, Skill> skills = new Dictionary<string, Skill>();
+            string hiscoresRaw = GetPlayerHiscores();
+            string[] hiscoresSplit = hiscoresRaw.Replace("-1", "").Split(',', '\n').Take(GetHiscoreLength()).ToArray();
+            int[] hiscores = hiscoresSplit.Select(i => int.Parse(i)).ToArray();
+            int j = 0;
+            for (int i = 0; i < hiscores.Length/NUM_PROPERTIES; i++)
+            {
+                skills[hiscoreMap[i]] = new Skill(hiscores[j], hiscores[j += 1], hiscores[j += 1]);
+                j += 1;
+            }
+            return skills;
         }
 
-        private string[] getPlayerHiscores()
+        private int GetHiscoreLength()
+        {
+            return NUM_PROPERTIES * NUM_SKILLS;
+        }
+
+        private string GetPlayerHiscores()
         {
             using (WebClient hiscoreConnection = new WebClient())
             {
-                string hiscoreJson = hiscoreConnection.DownloadString(PlayerUrl());
-                return hiscoreJson.Split(',');
+                return hiscoreConnection.DownloadString(PlayerUrl());
             }
         }
 
-        public string PlayerUrl()
+        private string PlayerUrl()
         {
             try
             {
@@ -44,6 +69,5 @@ namespace AutoClicker
                 throw new Exception("username not found");
             }
         }
-
     }
 }
