@@ -39,6 +39,7 @@ namespace AutoClicker
         private void Application_Load(object sender, EventArgs e)
         {
             //
+            TimerControl.End += StopKek;
             player = new Player();
             FormClosing += Application_Close;
             clickActivity = new BackgroundWorker();
@@ -201,19 +202,20 @@ namespace AutoClicker
             }
             else
             {
-                StopKek();
+                //StopKek();
             }
             this.clickActivity.RunWorkerAsync();
         }
 
         private void StopKek()
         {
-            active = false;
+            /*active = false;
             kekTimer.Enabled = false;
             Console.WriteLine("rip the dream");
             SetFormText(defaultName);
             SetControlText(startButton, "Start");
-            Console.WriteLine("Cursor position = X: " + Cursor.Position.X + ", Y: " + Cursor.Position.Y);
+            Console.WriteLine("Cursor position = X: " + Cursor.Position.X + ", Y: " + Cursor.Position.Y);*/
+            Console.WriteLine("Stopped.");
         }
 
         private void SetFormText(string text)
@@ -271,7 +273,8 @@ namespace AutoClicker
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            Kek();
+            //Kek();
+            this.TimerControl.Start();
         }
 
         private void SetPreset(KekState state)
