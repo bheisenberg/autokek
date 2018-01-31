@@ -91,6 +91,7 @@
     <Compile Include="Hiscore.cs" />
     <Compile Include="Hitpoints.cs" />
     <Compile Include="HitpointsCapturer.cs" />
+    <Compile Include="KeyHandler.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Rect.cs" />
     <Compile Include="RunescapeWindow.cs" />

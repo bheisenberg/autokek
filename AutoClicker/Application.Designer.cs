@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Application));
-            this.startButton = new System.Windows.Forms.Button();
+            this.StartButton = new System.Windows.Forms.Button();
             this.tildeLabel = new System.Windows.Forms.Label();
             this.versionLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
@@ -42,23 +42,26 @@
             this.runescapeButton = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contentPanel = new System.Windows.Forms.Panel();
-            this.rangeLabel = new System.Windows.Forms.Label();
+            this.PauseButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
+            this.PausePanel = new System.Windows.Forms.Panel();
+            this.Range = new TimerControl.RangeControl();
             this.TimerControl = new TimerControl.TimeControl();
-            this.rangeControl1 = new TimerControl.RangeControl();
             this.optionsPanel.SuspendLayout();
             this.bottomPanel.SuspendLayout();
+            this.PausePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(13, 236);
-            this.startButton.Margin = new System.Windows.Forms.Padding(4);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(100, 28);
-            this.startButton.TabIndex = 0;
-            this.startButton.Text = "Start";
-            this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            this.StartButton.Location = new System.Drawing.Point(21, 218);
+            this.StartButton.Margin = new System.Windows.Forms.Padding(4);
+            this.StartButton.Name = "startButton";
+            this.StartButton.Size = new System.Drawing.Size(132, 28);
+            this.StartButton.TabIndex = 2;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // tildeLabel
             // 
@@ -68,7 +71,7 @@
             this.tildeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tildeLabel.Name = "tildeLabel";
             this.tildeLabel.Size = new System.Drawing.Size(132, 17);
-            this.tildeLabel.TabIndex = 9;
+            this.tildeLabel.TabIndex = 1;
             this.tildeLabel.Text = "Press ` to start/stop";
             this.tildeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -80,7 +83,7 @@
             this.versionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(104, 17);
-            this.versionLabel.TabIndex = 14;
+            this.versionLabel.TabIndex = 2;
             this.versionLabel.Text = "Version 1.0.1.0";
             this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -109,7 +112,7 @@
             this.alchemyButton.Margin = new System.Windows.Forms.Padding(4);
             this.alchemyButton.Name = "alchemyButton";
             this.alchemyButton.Size = new System.Drawing.Size(43, 37);
-            this.alchemyButton.TabIndex = 13;
+            this.alchemyButton.TabIndex = 3;
             this.alchemyButton.UseVisualStyleBackColor = false;
             this.alchemyButton.Click += new System.EventHandler(this.alchemyButton_Click);
             // 
@@ -126,7 +129,7 @@
             this.thievingButton.Margin = new System.Windows.Forms.Padding(4);
             this.thievingButton.Name = "thievingButton";
             this.thievingButton.Size = new System.Drawing.Size(43, 37);
-            this.thievingButton.TabIndex = 27;
+            this.thievingButton.TabIndex = 2;
             this.thievingButton.UseVisualStyleBackColor = false;
             this.thievingButton.Click += new System.EventHandler(this.thievingButton_Click);
             // 
@@ -143,7 +146,7 @@
             this.nmzButton.Margin = new System.Windows.Forms.Padding(4);
             this.nmzButton.Name = "nmzButton";
             this.nmzButton.Size = new System.Drawing.Size(43, 37);
-            this.nmzButton.TabIndex = 25;
+            this.nmzButton.TabIndex = 1;
             this.nmzButton.UseVisualStyleBackColor = false;
             this.nmzButton.Click += new System.EventHandler(this.nmzButton_Click);
             // 
@@ -160,7 +163,7 @@
             this.teleportButton.Margin = new System.Windows.Forms.Padding(4);
             this.teleportButton.Name = "teleportButton";
             this.teleportButton.Size = new System.Drawing.Size(43, 37);
-            this.teleportButton.TabIndex = 26;
+            this.teleportButton.TabIndex = 0;
             this.teleportButton.UseVisualStyleBackColor = false;
             this.teleportButton.Click += new System.EventHandler(this.teleportButton_Click);
             // 
@@ -182,9 +185,10 @@
             this.runescapeButton.Margin = new System.Windows.Forms.Padding(4);
             this.runescapeButton.Name = "runescapeButton";
             this.runescapeButton.Size = new System.Drawing.Size(287, 23);
-            this.runescapeButton.TabIndex = 35;
+            this.runescapeButton.TabIndex = 0;
             this.runescapeButton.Text = "Connect to RuneScape";
             this.runescapeButton.UseVisualStyleBackColor = true;
+            this.runescapeButton.Visible = false;
             this.runescapeButton.Click += new System.EventHandler(this.runescapeButton_Click);
             // 
             // notifyIcon1
@@ -197,46 +201,70 @@
             this.contentPanel.BackColor = System.Drawing.Color.Transparent;
             this.contentPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("contentPanel.BackgroundImage")));
             this.contentPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.contentPanel.Location = new System.Drawing.Point(263, 12);
+            this.contentPanel.Location = new System.Drawing.Point(252, 12);
             this.contentPanel.Name = "contentPanel";
             this.contentPanel.Size = new System.Drawing.Size(210, 235);
             this.contentPanel.TabIndex = 33;
             // 
-            // rangeLabel
+            // PauseButton
             // 
-            this.rangeLabel.AutoSize = true;
-            this.rangeLabel.Location = new System.Drawing.Point(33, 12);
-            this.rangeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.rangeLabel.Name = "rangeLabel";
-            this.rangeLabel.Size = new System.Drawing.Size(50, 17);
-            this.rangeLabel.TabIndex = 3;
-            this.rangeLabel.Text = "Range";
+            this.PauseButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.PauseButton.Location = new System.Drawing.Point(0, 0);
+            this.PauseButton.Name = "PauseButton";
+            this.PauseButton.Size = new System.Drawing.Size(68, 30);
+            this.PauseButton.TabIndex = 0;
+            this.PauseButton.Text = "Pause";
+            this.PauseButton.UseVisualStyleBackColor = true;
+            this.PauseButton.Click += new System.EventHandler(this.PauseButton_Click);
+            // 
+            // CancelButton
+            // 
+            this.CancelButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.CancelButton.Location = new System.Drawing.Point(69, 0);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(63, 30);
+            this.CancelButton.TabIndex = 1;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // PausePanel
+            // 
+            this.PausePanel.Controls.Add(this.PauseButton);
+            this.PausePanel.Controls.Add(this.CancelButton);
+            this.PausePanel.Location = new System.Drawing.Point(21, 218);
+            this.PausePanel.Name = "PausePanel";
+            this.PausePanel.Size = new System.Drawing.Size(132, 30);
+            this.PausePanel.TabIndex = 39;
+            this.PausePanel.Visible = false;
+            // 
+            // Range
+            // 
+            this.Range.End = 2000;
+            this.Range.Location = new System.Drawing.Point(21, 32);
+            this.Range.Name = "Range";
+            this.Range.Size = new System.Drawing.Size(150, 110);
+            this.Range.Start = 1000;
+            this.Range.TabIndex = 0;
             // 
             // TimerControl
             // 
-            this.TimerControl.Location = new System.Drawing.Point(21, 137);
+            this.TimerControl.Location = new System.Drawing.Point(21, 138);
             this.TimerControl.Name = "TimerControl";
-            this.TimerControl.Size = new System.Drawing.Size(205, 92);
-            this.TimerControl.TabIndex = 35;
-            // 
-            // rangeControl1
-            // 
-            this.rangeControl1.Location = new System.Drawing.Point(36, 32);
-            this.rangeControl1.Name = "rangeControl1";
-            this.rangeControl1.Size = new System.Drawing.Size(190, 110);
-            this.rangeControl1.TabIndex = 36;
+            this.TimerControl.Size = new System.Drawing.Size(189, 72);
+            this.TimerControl.TabIndex = 1;
             // 
             // Application
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(523, 314);
-            this.Controls.Add(this.rangeControl1);
+            this.Controls.Add(this.PausePanel);
+            this.Controls.Add(this.Range);
             this.Controls.Add(this.TimerControl);
             this.Controls.Add(this.optionsPanel);
             this.Controls.Add(this.contentPanel);
             this.Controls.Add(this.bottomPanel);
-            this.Controls.Add(this.rangeLabel);
-            this.Controls.Add(this.startButton);
+            this.Controls.Add(this.StartButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -246,6 +274,7 @@
             this.optionsPanel.ResumeLayout(false);
             this.bottomPanel.ResumeLayout(false);
             this.bottomPanel.PerformLayout();
+            this.PausePanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,7 +282,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Label tildeLabel;
         private System.Windows.Forms.Button alchemyButton;
         private System.Windows.Forms.Label versionLabel;
@@ -266,8 +295,10 @@
         private System.Windows.Forms.Panel contentPanel;
         private System.Windows.Forms.Button runescapeButton;
         private TimerControl.TimeControl TimerControl;
-        private System.Windows.Forms.Label rangeLabel;
-        private TimerControl.RangeControl rangeControl1;
+        private TimerControl.RangeControl Range;
+        private System.Windows.Forms.Button PauseButton;
+        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Panel PausePanel;
     }
 }
 

@@ -17,19 +17,17 @@ namespace AutoClicker
 {
     public partial class Application : Form
     {
-        private string username;
+        private KeyHandler keyHandler;
+        private bool paused;
         private bool active;
-        private System.Timers.Timer kekTimer;
         private enum KekState { alching, teleporting, nmz, none, thieving };
         private KekState currState;
-        private Input input;
-        private DateTime startTime;
-        private BackgroundWorker clickActivity;
         private const string defaultName = "Autokek";
         private HitpointsCapturer hitpointsCapturer;
         private Control activeControl;
         private Player player;
         private RunescapeWindow runescapeWindow;
+        private System.Windows.Forms.Timer clickTimer;
 
         public Application()
         {
@@ -38,23 +36,49 @@ namespace AutoClicker
 
         private void Application_Load(object sender, EventArgs e)
         {
-            //
-            TimerControl.End += StopKek;
-            player = new Player();
+            TimerControl.End += StopAutoClicker;
             FormClosing += Application_Close;
-            clickActivity = new BackgroundWorker();
+            player = new Player();
+            clickTimer = new System.Windows.Forms.Timer();
+            clickTimer.Interval = CalculateRandomInterval();
+            clickTimer.Tick += ClickTimer_Tick;
             TryToConnectToRuneScape();
-            //this.KeyPreview = true;
-            //kekTimer = new System.Timers.Timer((int)rangeStartNumber.Value);
-            //currState = KekState.none;
-            //this.window = new Window();
-            //input = new Input(Keys.Oemtilde, this);
-            //input.Register();
+            keyHandler = new KeyHandler(Keys.Oemtilde, this);
+            keyHandler.Register();
         }
 
-        private void AddUserNameToTitle()
+        private void ClickTimer_Tick(object sender, EventArgs e)
         {
-            SetFormText(String.Format("{0} - {1}", defaultName, player.UserName));
+            Mouse.Click();
+            clickTimer.Interval = CalculateRandomInterval();
+        }
+
+        private int CalculateRandomInterval()
+        {
+            Random random = new Random();
+            return random.Next(Range.Start, Range.End);
+        }
+
+
+
+        private void StartAutoClicker()
+        {
+            active = true;
+            TimerControl.Start();
+            Range.Disable();
+            StartButton.Visible = false;
+            PausePanel.Visible = true;
+            clickTimer.Start();
+        }
+
+        private void StopAutoClicker()
+        {
+            active = false;
+            TimerControl.Stop();
+            Range.Enable();
+            StartButton.Visible = true;
+            PausePanel.Visible = false;
+            clickTimer.Stop();
         }
 
         private void TryToConnectToRuneScape()
@@ -68,7 +92,10 @@ namespace AutoClicker
             }
         }
 
-
+        private void AddUserNameToTitle()
+        {
+            SetFormText(String.Format("{0} - {1}", defaultName, player.UserName));
+        }
 
         private void UpdateConnectedButtonToConnected()
         {
@@ -117,24 +144,6 @@ namespace AutoClicker
             SetControlText(startButton, "Stop");
         }*/
 
-        public TimeSpan elapsed(DateTime start)
-        {
-            return DateTime.Now - start;
-        }
-
-        private void SetTimer()
-        {
-            kekTimer = new System.Timers.Timer();
-            kekTimer.Elapsed += OnTimedEvent;
-            kekTimer.AutoReset = true;
-            kekTimer.Enabled = true;
-        }
-
-        /*private int timeLeft ()
-        {
-            //return (int)durationNumber.Value - (int)elapsed(startTime).TotalSeconds;
-        }*/
-
         private void InitHPFont()
         {
             PrivateFontCollection pfc = new PrivateFontCollection();
@@ -143,22 +152,20 @@ namespace AutoClicker
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            /*if (timeLeft() > 0 || durationNumber.Value == 0)
+            Random random = new Random();
+            clickTimer.Interval = random.Next(Range.Start, Range.End);
+            switch (currState)
             {
-                Random r = new Random();
-                int nextKekTime = r.Next((int)rangeStartNumber.Value, (int)rangeEndNumber.Value);
-                Console.WriteLine(timeLeft());
-                kekTimer.Interval = nextKekTime;
-                switch (currState) {
-                    case KekState.thieving:
-                        Thieve();
-                        break;
-                    default:
-                        Mouse.Click();
-                        break;
-                }
-            }*/
+                case KekState.thieving:
+                    Thieve();
+                    break;
+                default:
+                    Mouse.Click();
+                    break;
+            }
         }
+  
+    
 
         private void Thieve()
         {
@@ -182,40 +189,26 @@ namespace AutoClicker
             }*/
         }
 
-        private void TildePressed()
-        {
-            Kek();
-        }
-
         protected override void WndProc(ref Message m)
         {
+            Console.WriteLine("hey");
             if (m.Msg == Constants.WM_HOTKEY_MSG_ID)
+            {
                 TildePressed();
+            }
             base.WndProc(ref m);
         }
 
-        private void Kek()
+        private void TildePressed()
         {
             if (!active)
             {
-                //StartKek();
+                StartAutoClicker();
             }
             else
             {
-                //StopKek();
+                StopAutoClicker();
             }
-            this.clickActivity.RunWorkerAsync();
-        }
-
-        private void StopKek()
-        {
-            /*active = false;
-            kekTimer.Enabled = false;
-            Console.WriteLine("rip the dream");
-            SetFormText(defaultName);
-            SetControlText(startButton, "Start");
-            Console.WriteLine("Cursor position = X: " + Cursor.Position.X + ", Y: " + Cursor.Position.Y);*/
-            Console.WriteLine("Stopped.");
         }
 
         private void SetFormText(string text)
@@ -261,50 +254,37 @@ namespace AutoClicker
             }
         }
 
-        private void KekComplete(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (!active)
-            {
-                this.Text = "Autokek (" + currState + ")";
-                startButton.Text = "Start";
-                Console.WriteLine("changed text");
-            }
-        }
-
         private void startButton_Click(object sender, EventArgs e)
         {
-            //Kek();
-            this.TimerControl.Start();
+            StartAutoClicker();
         }
 
         private void SetPreset(KekState state)
         {
-            int start;
-            int end;
             contentPanel.Controls.Clear();
             activeControl = null;
             switch (state)
             {
                 case KekState.alching:
-                    start = 900;
-                    end = 1200;
+                    Range.Start = 900;
+                    Range.End = 1200;
                     break;
                 case KekState.teleporting:
-                    start = 1000;
-                    end = 1200;
+                    Range.Start = 1000;
+                    Range.End = 1200;
                     break;
                 case KekState.nmz:
-                    start = 45000;
-                    end = 55000;
+                    Range.Start = 45000;
+                    Range.End = 55000;
                     break;
                 case KekState.thieving:
-                    start = 300;
-                    end = 600;
+                    Range.Start = 300;
+                    Range.End = 600;
                     activeControl = new ThievingControl();
                     break;
                 default:
-                    start = 1000;
-                    end = 1000;
+                    Range.Start = 1000;
+                    Range.End = 1000;
                     break;
             }
             if (activeControl != null)
@@ -313,13 +293,10 @@ namespace AutoClicker
                 activeControl.Dock = DockStyle.Fill;
             }
             currState = state;
-            rangeStartNumber.Value = start;
-            rangeEndNumber.Value = end;
         }
 
         private void Application_Close(object sender, FormClosingEventArgs e)
         {
-            //kekTimer.Enabled = false;
             Console.WriteLine("closed");
         }
 
@@ -343,15 +320,38 @@ namespace AutoClicker
             SetPreset(KekState.teleporting);
         }
 
-        private void testButton_Click(object sender, EventArgs e)
-        {
-            //Screen.GetHealthLocation();
-        }
-
         private void runescapeButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("wtf meng");
             TryToConnectToRuneScape();
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            StopAutoClicker();
+        }
+
+        private void PauseButton_Click(object sender, EventArgs e)
+        {
+            if (!paused)
+            {
+                Pause();
+            }
+            else
+            {
+                Resume();
+            }
+        }
+
+        private void Pause()
+        {
+            paused = true;
+            TimerControl.Pause();
+        }
+
+        private void Resume()
+        {
+            paused = false;
+            TimerControl.Resume();
         }
     }
 }
