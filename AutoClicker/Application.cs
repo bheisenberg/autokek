@@ -28,6 +28,7 @@ namespace AutoClicker
         private Player player;
         private RunescapeWindow runescapeWindow;
         private System.Windows.Forms.Timer clickTimer;
+        private bool doubleClick;
 
         public Application()
         {
@@ -40,7 +41,6 @@ namespace AutoClicker
             FormClosing += Application_Close;
             player = new Player();
             clickTimer = new System.Windows.Forms.Timer();
-            clickTimer.Interval = CalculateRandomInterval();
             clickTimer.Tick += ClickTimer_Tick;
             TryToConnectToRuneScape();
             keyHandler = new KeyHandler(Keys.Oemtilde, this);
@@ -49,8 +49,46 @@ namespace AutoClicker
 
         private void ClickTimer_Tick(object sender, EventArgs e)
         {
+            switch(currState)
+            {
+                case KekState.nmz:
+                    FlickMouse();
+                    break;
+                default:
+                    ClickMouse();
+                    break;
+            }
+        }
+
+        private void ClickMouse()
+        {
             Mouse.Click();
             clickTimer.Interval = CalculateRandomInterval();
+        }
+
+        private void FlickMouse()
+        {
+            if (doubleClick)
+            {
+                FastClick();
+            }
+            else
+            {
+                ResetClick();
+            }
+        }
+
+        private void FastClick()
+        {
+            clickTimer.Interval = 500;
+            doubleClick = false;
+            Mouse.Click();
+        }
+
+        private void ResetClick()
+        {
+            doubleClick = true;
+            ClickMouse();
         }
 
         private int CalculateRandomInterval()
@@ -63,12 +101,15 @@ namespace AutoClicker
 
         private void StartAutoClicker()
         {
+            doubleClick = true;
             active = true;
             TimerControl.Start();
             Range.Disable();
             StartButton.Visible = false;
             PausePanel.Visible = true;
+            clickTimer.Interval = CalculateRandomInterval();
             clickTimer.Start();
+            ClickTimer_Tick(new Object(), new EventArgs());
         }
 
         private void StopAutoClicker()
@@ -191,7 +232,6 @@ namespace AutoClicker
 
         protected override void WndProc(ref Message m)
         {
-            Console.WriteLine("hey");
             if (m.Msg == Constants.WM_HOTKEY_MSG_ID)
             {
                 TildePressed();

@@ -52,11 +52,11 @@
             this.PausePanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // startButton
+            // StartButton
             // 
             this.StartButton.Location = new System.Drawing.Point(21, 218);
             this.StartButton.Margin = new System.Windows.Forms.Padding(4);
-            this.StartButton.Name = "startButton";
+            this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(132, 28);
             this.StartButton.TabIndex = 2;
             this.StartButton.Text = "Start";

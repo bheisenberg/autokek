@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoKek", "AutoClicker\AutoKek.csproj", "{A412CFE0-1163-40CD-9159-55976714C8FF}"
 EndProject
@@ -11,8 +11,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A412CFE0-1163-40CD-9159-55976714C8FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A412CFE0-1163-40CD-9159-55976714C8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A412CFE0-1163-40CD-9159-55976714C8FF}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{A412CFE0-1163-40CD-9159-55976714C8FF}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{A412CFE0-1163-40CD-9159-55976714C8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A412CFE0-1163-40CD-9159-55976714C8FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
